@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CMPSFC.Framework.SharePoint", "CMPSFC.Framework.SharePoint\CMPSFC.Framework.SharePoint.csproj", "{C36F8A0B-031D-42EE-8FDE-F0DDD1583CE3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Code", "Code", "{79BE85BF-8CDA-4440-9A43-7556BBB07F96}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{133E809E-A2AB-49EA-9792-2FB1B0DC84A6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CMPSFC.Framework.SharePointTests", "CMPSFC.Framework.SharePointTests\CMPSFC.Framework.SharePointTests.csproj", "{72CB690C-1355-4CA3-AEAB-2B3EFA773724}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C36F8A0B-031D-42EE-8FDE-F0DDD1583CE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C36F8A0B-031D-42EE-8FDE-F0DDD1583CE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C36F8A0B-031D-42EE-8FDE-F0DDD1583CE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C36F8A0B-031D-42EE-8FDE-F0DDD1583CE3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72CB690C-1355-4CA3-AEAB-2B3EFA773724}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72CB690C-1355-4CA3-AEAB-2B3EFA773724}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72CB690C-1355-4CA3-AEAB-2B3EFA773724}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72CB690C-1355-4CA3-AEAB-2B3EFA773724}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C36F8A0B-031D-42EE-8FDE-F0DDD1583CE3} = {79BE85BF-8CDA-4440-9A43-7556BBB07F96}
+	EndGlobalSection
+EndGlobal

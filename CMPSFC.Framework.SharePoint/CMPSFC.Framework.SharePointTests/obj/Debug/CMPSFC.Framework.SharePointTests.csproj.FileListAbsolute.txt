@@ -1,0 +1,7 @@
+C:\Projetos\CMPSFC.Framework.SharePoint\CMPSFC.Framework.SharePoint\CMPSFC.Framework.SharePointTests\obj\Debug\CMPSFC.Framework.SharePointTests.csprojResolveAssemblyReference.cache
+C:\Projetos\CMPSFC.Framework.SharePoint\CMPSFC.Framework.SharePoint\CMPSFC.Framework.SharePointTests\bin\Debug\CMPSFC.Framework.SharePointTests.dll
+C:\Projetos\CMPSFC.Framework.SharePoint\CMPSFC.Framework.SharePoint\CMPSFC.Framework.SharePointTests\bin\Debug\CMPSFC.Framework.SharePointTests.pdb
+C:\Projetos\CMPSFC.Framework.SharePoint\CMPSFC.Framework.SharePoint\CMPSFC.Framework.SharePointTests\bin\Debug\Cmpsfc.Framework.SharePoint.dll
+C:\Projetos\CMPSFC.Framework.SharePoint\CMPSFC.Framework.SharePoint\CMPSFC.Framework.SharePointTests\bin\Debug\Cmpsfc.Framework.SharePoint.pdb
+C:\Projetos\CMPSFC.Framework.SharePoint\CMPSFC.Framework.SharePoint\CMPSFC.Framework.SharePointTests\obj\Debug\CMPSFC.Framework.SharePointTests.dll
+C:\Projetos\CMPSFC.Framework.SharePoint\CMPSFC.Framework.SharePoint\CMPSFC.Framework.SharePointTests\obj\Debug\CMPSFC.Framework.SharePointTests.pdb

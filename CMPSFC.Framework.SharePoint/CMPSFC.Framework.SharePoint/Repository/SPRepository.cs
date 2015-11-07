@@ -1,4 +1,7 @@
-﻿using Microsoft.SharePoint;
+﻿using CMPSFC.Framework.SharePoint.Base;
+using CMPSFC.Framework.SharePoint.Extensions;
+using CMPSFC.Framework.SharePoint.Utilities;
+using Microsoft.SharePoint;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,36 +9,108 @@ using System.Linq;
 [assembly: CLSCompliant(true)]
 namespace CMPSFC.Framework.SharePoint
 {
-    public class SPRepository<TEntity> : IDisposable, ISPRepository<TEntity> where TEntity : global::CMPSFC.Framework.SharePoint.Base.SPBaseEntity, new()
+    public class SPRepository<TEntity> : BaseRepository, IDisposable, ISPRepository<TEntity> where TEntity : global::CMPSFC.Framework.SharePoint.Base.SPBaseEntity, new()
     {
 
         #region PROPERTIES
+
+        private SPList _parentlist = null;
+        private SPWeb _parentweb = null;
+
+
         public SPWeb ParentWeb { get; private set; }
-        public SPList ParentList { get; private set; }
-        private static string RelativeWebUrl { get { return ""; } }
-        private static Guid ListGuid { get { return Guid.NewGuid(); } }
+        public SPList ParentList
+        {
+            get
+            {
+                if (_parentlist == null)
+                    throw new SPException(string.Format("The list cannot be found on web '{0}'", RelativeWebUrl));
+
+
+                return _parentlist as SPList;
+            }
+            private set
+            {
+                _parentlist = value;
+            }
+        }
+
+        private  string RelativeWebUrl
+        {
+            get
+            {
+                var relativeweburl = base.ListAttribute<TEntity>().RelativeUrl;
+                return relativeweburl ?? "";
+            }
+        }
+        private static string ListGuid { get; set; }
+
         #endregion
 
         #region CONSTRUCTORS
         public SPRepository()
         {
+            InitRepository();
+        }
 
+        private void InitRepository()
+        {
+            ListGuid = base.ListAttribute<TEntity>().ListGuid;
 
+            ParentWeb = new SPSite(SPContext.Current.Web.Url).OpenWeb(RelativeWebUrl);
+            ParentList = this.ParentWeb.Lists.Cast<SPList>().FirstOrDefault(f => f.ID == Guid.Parse(ListGuid));
         }
         public SPRepository(string weburl, Guid listguid)
         {
             ParentWeb = new SPSite(weburl).OpenWeb(RelativeWebUrl);
-
             ParentList = this.ParentWeb.Lists.Cast<SPList>().FirstOrDefault(f => f.ID == listguid);
+        }
+        public SPRepository(string weburl, string listname)
+        {
+            if (listname == null)
+                throw new ArgumentNullException(paramName: "listname");
+
+            ParentWeb = new SPSite(weburl).OpenWeb(RelativeWebUrl);
+
+            ParentList = ParentWeb.Lists.TryGetList(listname);
 
             if (ParentList == null)
-                throw new SPException(string.Format("The list '{0}' (GUID: '{1}') cannot be found on web '{2}'", listguid, RelativeWebUrl));
+                throw new SPException(string.Format("The list cannot be found on web '{0}'", RelativeWebUrl));
+        }
+        public SPRepository(bool elevatedprivileges)
+        {
+            if (elevatedprivileges)
+                SPSecurity.RunWithElevatedPrivileges(delegate() { InitRepository(); });
+            else
+                InitRepository();
+        }
+
+        #endregion
+
+        #region CUSTOM METHODS
+        protected virtual IEnumerable<TEntity> GetEntities(SPListItemCollection items)
+        {
+            foreach (SPListItem item in items)
+                yield return GetEntity(item);
 
         }
-        public SPRepository(object listidentifier) { }
-        public SPRepository(bool elevateprivileges) { }
-        public SPRepository(SPWeb web, bool elevateprivileges) { }
-        public SPRepository(SPWeb web, string listname, bool elevateprivileges) { }
+        protected virtual TEntity GetEntity(SPListItem item)
+        {
+            if (item == null)
+                return null;
+
+            TEntity entity = new TEntity();
+
+            entity.Id = item.ID;
+            entity.ParentItem = item;
+            entity.Load(item);
+
+            return entity;
+        }
+        protected virtual void Map(TEntity entity, ref SPListItem item)
+        {
+            //item.SetValue<T>(entity);
+        }
         #endregion
 
         #region METHODS
@@ -50,19 +125,40 @@ namespace CMPSFC.Framework.SharePoint
 
         }
 
-        public IEnumerable<TEntity> Retrieve()
+        public IEnumerable<TEntity> GetAll(bool allmetadata)
+        {
+            IEnumerable<TEntity> resultCollection = null;
+            try
+            {
+                var query = new SPQuery();
+                query.Query = @"<Where />";
+
+                if (!allmetadata)
+                {
+                    query.ViewFieldsOnly = true;
+                    query.ViewFields = Helper.RetrieveSPFieldRef<TEntity>();
+                }
+
+                return GetBy(query);
+            }
+            catch (Exception) { throw; }
+        }
+
+        public IEnumerable<TEntity> Where(System.Linq.Expressions.Expression<Func<TEntity, bool>> predicate)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<TEntity> Find(System.Linq.Expressions.Expression<Func<TEntity, bool>> predicate)
+        public IEnumerable<TEntity> GetBy(SPQuery query)
         {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<TEntity> Retrieve(SPQuery query)
-        {
-            throw new NotImplementedException();
+            try
+            {
+                return GetEntities(ParentList.GetItems(query));
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         public TEntity Add(TEntity entity)
@@ -89,7 +185,6 @@ namespace CMPSFC.Framework.SharePoint
         {
             throw new NotImplementedException();
         }
-
 
         public void Update(IList<TEntity> entities)
         {

@@ -51,9 +51,11 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Entity\EntityRepository.cs" />
     <Compile Include="Entity\EntityTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\EntityRepositoryTests.cs" />
+    <Compile Include="Repository\EntityBaseRepositoryTest.cs" />
+    <Compile Include="Repository\EntityRepositoryTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CMPSFC.Framework.SharePoint\CMPSFC.Framework.SharePoint.csproj">

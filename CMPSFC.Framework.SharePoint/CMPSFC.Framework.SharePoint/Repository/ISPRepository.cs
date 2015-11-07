@@ -10,9 +10,9 @@ namespace CMPSFC.Framework.SharePoint
 {
     public interface ISPRepository<TEntity>
     {
-        IEnumerable<TEntity> Retrieve();
-        IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate);
-        IEnumerable<TEntity> Retrieve(SPQuery query);
+        IEnumerable<TEntity> GetAll(bool allmetadata);
+        IEnumerable<TEntity> Where(Expression<Func<TEntity, bool>> predicate);
+        IEnumerable<TEntity> GetBy(SPQuery query);
 
 
         TEntity Add(TEntity entity);

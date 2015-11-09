@@ -24,6 +24,7 @@ namespace CMPSFC.Framework.SharePointTests.Repository
         {
             spweb = new SPSite(weburl).OpenWeb();
             _subject = new EntityRepository(weburl, listguid);
+            AddTestItem();
         }
 
         /// <summary>
@@ -37,6 +38,14 @@ namespace CMPSFC.Framework.SharePointTests.Repository
             Assert.IsNotNull(result.First().Title);
         }
 
+        private void AddTestItem()
+        {
+            _subject.Add(new EntityTest()
+            {
+                Title = string.Format("New item created on {0}", DateTime.Now)
+            });
+        }
+
         /// <summary>
         /// It should be possible to retrieve all data but only with item properties that IS mapped on TEntity class
         /// </summary>
@@ -48,6 +57,41 @@ namespace CMPSFC.Framework.SharePointTests.Repository
             Assert.IsNotNull(result.First().Title);
             Assert.IsNotNull(result.First().Author);
             Assert.IsNotNull(result.First().Created);
+        }
+
+        /// <summary>
+        /// It should be possible to get an specific item using LAMBDA Expression
+        /// </summary>
+        [TestMethod]
+        public void I_Can_Get_Items_Filtered_By_Predicate_Expression()
+        {
+            var result = _subject.FindBy(f => f.Title != string.Empty);
+            Assert.IsNotNull(result);
+            CollectionAssert.AllItemsAreNotNull(result.ToList());
+        }
+
+
+        /// <summary>
+        /// It should be possible to add new item
+        /// </summary>
+        [TestMethod]
+        public void I_Can_Add_New_Item_To_List()
+        {
+            var newitem = new EntityTest()
+            {
+                Title = "New item created on " + DateTime.Now,
+            };
+
+            var result = _subject.Add(newitem);
+            Assert.IsNotNull(result);
+        }
+
+
+        [TestCleanup]
+        public void TearDown()
+        {
+            var collection = _subject.GetAll(false);
+            _subject.Delete(collection.ToList());
         }
     }
 }

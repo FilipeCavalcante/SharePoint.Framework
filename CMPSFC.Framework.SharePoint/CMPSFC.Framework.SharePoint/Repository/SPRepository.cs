@@ -35,7 +35,7 @@ namespace CMPSFC.Framework.SharePoint
             }
         }
 
-        private  string RelativeWebUrl
+        private string RelativeWebUrl
         {
             get
             {
@@ -53,13 +53,6 @@ namespace CMPSFC.Framework.SharePoint
             InitRepository();
         }
 
-        private void InitRepository()
-        {
-            ListGuid = base.ListAttribute<TEntity>().ListGuid;
-
-            ParentWeb = new SPSite(SPContext.Current.Web.Url).OpenWeb(RelativeWebUrl);
-            ParentList = this.ParentWeb.Lists.Cast<SPList>().FirstOrDefault(f => f.ID == Guid.Parse(ListGuid));
-        }
         public SPRepository(string weburl, Guid listguid)
         {
             ParentWeb = new SPSite(weburl).OpenWeb(RelativeWebUrl);
@@ -88,6 +81,13 @@ namespace CMPSFC.Framework.SharePoint
         #endregion
 
         #region CUSTOM METHODS
+        private void InitRepository()
+        {
+            ListGuid = base.ListAttribute<TEntity>().ListGuid;
+
+            ParentWeb = new SPSite(SPContext.Current.Web.Url).OpenWeb(RelativeWebUrl);
+            ParentList = this.ParentWeb.Lists.Cast<SPList>().FirstOrDefault(f => f.ID == Guid.Parse(ListGuid));
+        }
         protected virtual IEnumerable<TEntity> GetEntities(SPListItemCollection items)
         {
             foreach (SPListItem item in items)
@@ -109,7 +109,7 @@ namespace CMPSFC.Framework.SharePoint
         }
         protected virtual void Map(TEntity entity, ref SPListItem item)
         {
-            //item.SetValue<T>(entity);
+            item.SetValue<TEntity>(entity);
         }
         #endregion
 
@@ -144,9 +144,9 @@ namespace CMPSFC.Framework.SharePoint
             catch (Exception) { throw; }
         }
 
-        public IEnumerable<TEntity> Where(System.Linq.Expressions.Expression<Func<TEntity, bool>> predicate)
+        public IEnumerable<TEntity> FindBy(System.Linq.Expressions.Expression<Func<TEntity, bool>> predicate)
         {
-            throw new NotImplementedException();
+            return GetAll(false).AsQueryable().Where(predicate).AsEnumerable();
         }
 
         public IEnumerable<TEntity> GetBy(SPQuery query)
@@ -163,32 +163,71 @@ namespace CMPSFC.Framework.SharePoint
 
         public TEntity Add(TEntity entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var item = New();
+                Map(entity, ref item);
+                item.Update();
+                return GetEntity(item);
+            }
+            catch (Exception) { throw; }
+        }
+
+        private SPListItem New()
+        {
+            return ParentList.Items.Add();
         }
 
         public TEntity Update(TEntity entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var item = FindBy(f => f.Id == entity.Id).FirstOrDefault();
+                if (item == null)
+                    throw new Exception("Item not found");
+
+                var toupdate = item.ParentItem;
+                Map(entity, ref toupdate);
+                toupdate.Update();
+                return GetEntity(toupdate);    
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
         }
 
-        public bool Delete(int id)
+        public void Delete(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                ParentList.Items.DeleteItemById(id);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
         }
 
         public void Add(IList<TEntity> entities)
         {
-            throw new NotImplementedException();
+            foreach (var entity in entities)
+                Add(entity);
         }
 
-        public void Delete(IList<int> entities)
+        public void Delete(IList<TEntity> entities)
         {
-            throw new NotImplementedException();
+            foreach (var entityid in entities)
+                Delete(entityid.Id);
         }
 
         public void Update(IList<TEntity> entities)
         {
-            throw new NotImplementedException();
+            foreach (var entity in entities)
+                Update(entity);
         }
 
         #endregion

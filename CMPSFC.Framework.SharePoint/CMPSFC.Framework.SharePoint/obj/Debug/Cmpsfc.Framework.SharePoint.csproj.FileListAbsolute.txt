@@ -1,5 +1,0 @@
-C:\Projetos\CMPSFC.Framework.SharePoint\CMPSFC.Framework.SharePoint\CMPSFC.Framework.SharePoint\bin\Debug\Cmpsfc.Framework.SharePoint.dll
-C:\Projetos\CMPSFC.Framework.SharePoint\CMPSFC.Framework.SharePoint\CMPSFC.Framework.SharePoint\bin\Debug\Cmpsfc.Framework.SharePoint.pdb
-C:\Projetos\CMPSFC.Framework.SharePoint\CMPSFC.Framework.SharePoint\CMPSFC.Framework.SharePoint\obj\Debug\Cmpsfc.Framework.SharePoint.dll
-C:\Projetos\CMPSFC.Framework.SharePoint\CMPSFC.Framework.SharePoint\CMPSFC.Framework.SharePoint\obj\Debug\Cmpsfc.Framework.SharePoint.pdb
-C:\Projetos\CMPSFC.Framework.SharePoint\CMPSFC.Framework.SharePoint\CMPSFC.Framework.SharePoint\obj\Debug\Cmpsfc.Framework.SharePoint.csprojResolveAssemblyReference.cache

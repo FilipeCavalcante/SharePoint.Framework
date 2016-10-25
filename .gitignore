@@ -1,0 +1,5 @@
+*.dll
+*.pdb
+
+CMPSFC.Framework.SharePoint/bin/*.*
+CMPSFC.Framework.SharePoint/obj/*.*

@@ -1,9 +1,6 @@
 ﻿using CMPSFC.Framework.SharePoint.Mapper;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CMPSFC.Framework.SharePoint.Base
 {

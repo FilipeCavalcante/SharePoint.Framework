@@ -2,18 +2,17 @@
 using CMPSFC.Framework.SharePoint.Utilities;
 using Microsoft.SharePoint;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CMPSFC.Framework.SharePoint.Extensions
 {
     public static class SPListItemExtensions
     {
-        public static T GetValue<T>(this SPListItem item, Guid fieldUid)
+        public static T GetValue<T>(this SPListItem item, Guid field)
         {
-            var value = item[fieldUid];
+            if (item == null)
+                return default(T);
+
+            var value = item[field];
             return Helper.GetValue<T>(value);
         }
         public static object GetValue(this SPListItem item, FieldMapperAttribute attributes)
@@ -22,7 +21,7 @@ namespace CMPSFC.Framework.SharePoint.Extensions
             {
                 return item[attributes.InternalName];
             }
-            catch (Exception ex)
+            catch
             {
                 //TODO: LogService.AddLog(ex.Message, LogType.Warning);
                 return null;
@@ -44,7 +43,7 @@ namespace CMPSFC.Framework.SharePoint.Extensions
                 {
                     var attr = Helper.GetFieldAttribute<TEntity>(property.Name);
                     if (attr != null)
-                        if (attr.ReadOnly == null || attr.ReadOnly == false)
+                        if (attr.ReadOnly == false)
                             item[attr.InternalName] = propInfo.GetValue(entity);
                 }
             }

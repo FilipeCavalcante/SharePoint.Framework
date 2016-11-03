@@ -1,13 +1,10 @@
 ﻿using Microsoft.SharePoint;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CMPSFC.Framework.SharePoint.Mapper
 {
-    public class ListMapperAttribute: Attribute
+    [AttributeUsage(AttributeTargets.Class)]
+    public sealed class ListMapperAttribute : Attribute
     {
         public string ListGuid { get; set; }
         public string ListTitle { get; set; }

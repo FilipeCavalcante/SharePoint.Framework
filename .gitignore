@@ -1,7 +1,0 @@
-*.dll
-*.pdb
-
-CMPSFC.Framework.SharePoint/bin/*.*
-CMPSFC.Framework.SharePoint/obj/*.*
-CMPSFC.Framework.SharePoint/CMPSFC.Framework.SharePoint/obj/*.*
-CMPSFC.Framework.SharePoint/CMPSFC.Framework.SharePoint/obj/debug/*.*

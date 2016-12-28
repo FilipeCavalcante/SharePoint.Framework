@@ -12,7 +12,6 @@ namespace PI.Framework.SharePointTests.Repository
         EntityRepository _subject;
         private string weburl = "http://win-sp2013/sites/unittest/";
         private Guid listguid = new Guid("520bb23b-fad7-46e9-b8ae-d7aba1940f69");
-        private string listname = "Unit Test";
         private SPWeb spweb = null;
 
 

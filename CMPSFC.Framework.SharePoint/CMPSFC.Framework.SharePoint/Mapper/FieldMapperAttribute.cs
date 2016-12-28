@@ -1,17 +1,14 @@
 ﻿using Microsoft.SharePoint;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PI.Framework.SharePoint.Mapper
 {
+    [AttributeUsage(AttributeTargets.Property)]
     public sealed class FieldMapperAttribute : Attribute
     {
         public string InternalName { get; set; }
         public SPFieldType ColumnType { get; set; }
         public Type DataType { get; set; }
-        public bool ReadOnly { get; set; }
+        public bool ReadOnly { get; set; } = false;
     }
 }

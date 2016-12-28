@@ -97,10 +97,10 @@ namespace PI.Framework.SharePoint.Utilities
 
             foreach (var prop in properties)
             {
-                var attr = Helper.GetFieldAttribute<T>(prop.Name);
+                var attr = GetFieldAttribute<T>(prop.Name);
                 if (attr != null)
                     if (attr.InternalName != null)
-                        strBuilder.Append(string.Format("<FieldRef Name='{0}' />", attr.InternalName));
+                        strBuilder.Append($"<FieldRef Name='{attr.InternalName}' />");
             }
 
             return strBuilder.ToString();

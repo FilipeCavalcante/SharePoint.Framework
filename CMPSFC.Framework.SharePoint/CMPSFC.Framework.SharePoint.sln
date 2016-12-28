@@ -7,7 +7,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PI.Framework.SharePoint", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Code", "Code", "{79BE85BF-8CDA-4440-9A43-7556BBB07F96}"
 EndProject
+<<<<<<< HEAD
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{133E809E-A2AB-49EA-9792-2FB1B0DC84A6}"
+=======
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CMPSFC.Framework.SharePointTests", "CMPSFC.Framework.SharePointTests\CMPSFC.Framework.SharePointTests.csproj", "{72CB690C-1355-4CA3-AEAB-2B3EFA773724}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{B3AC49EA-12D4-42F8-88C5-431A36301B7C}"
+>>>>>>> b6d7222c4088225f528045728793e74028d721f3
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,5 +31,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{C36F8A0B-031D-42EE-8FDE-F0DDD1583CE3} = {79BE85BF-8CDA-4440-9A43-7556BBB07F96}
+		{72CB690C-1355-4CA3-AEAB-2B3EFA773724} = {B3AC49EA-12D4-42F8-88C5-431A36301B7C}
 	EndGlobalSection
 EndGlobal

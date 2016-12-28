@@ -8,6 +8,9 @@ namespace PI.Framework.SharePoint.Extensions
     {
         public static void Load<TEntity>(this TEntity entity, SPListItem item)
         {
+            if (item == null)
+                return;
+
             var _web = item.Web;
             var _entity = entity.GetType();
             var properties = _entity.GetProperties();

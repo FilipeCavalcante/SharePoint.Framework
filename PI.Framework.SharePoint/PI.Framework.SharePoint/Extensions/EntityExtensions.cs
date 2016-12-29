@@ -1,6 +1,7 @@
 ﻿using PI.Framework.SharePoint.Utilities;
 using Microsoft.SharePoint;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PI.Framework.SharePoint.Extensions
 {
@@ -8,42 +9,27 @@ namespace PI.Framework.SharePoint.Extensions
     {
         public static void Load<TEntity>(this TEntity entity, SPListItem item)
         {
+            var _entity = entity.GetType();
+            if (_entity.BaseType.Name != "SPBaseEntity")
+                return;
             if (item == null)
                 return;
 
-            var _web = item.Web;
-            var _entity = entity.GetType();
             var properties = _entity.GetProperties();
-
             foreach (var prop in properties)
             {
-                var attr = Helper.GetFieldAttribute<TEntity>(prop.Name);
-                if (attr != null)
+                var attrs = Helper.GetFieldAttribute<TEntity>(prop.Name);
+                var _fieldName = attrs?.InternalName ?? prop.Name;
+                if (item.Fields.Cast<SPField>().Any(f => f.InternalName == _fieldName))
                 {
-                    var propInfo = _entity.GetProperty(prop.Name);
-                    var value = item.GetValue(attr);
-
+                    var value = item[_fieldName];
                     if (value != null)
                     {
-                        switch (attr.ColumnType)
+                        var propInfo = _entity.GetProperty(prop.Name);
+                        switch (prop.PropertyType.Name)
                         {
-                            case SPFieldType.User:
-                                {
-                                    if (attr.DataType.Name == "SPFieldUserValue")
-                                    {
-                                        var uservalue = new SPFieldUserValue(item.Web, value.ToString());
-                                        propInfo.SetValue(entity, uservalue, null);
-                                    }
-                                    else
-                                    {
-                                        var userCollection = new SPFieldUserValueCollection();
-                                        var ids = new List<int>();
-                                        foreach (var userId in ids)
-                                            userCollection.Add(new SPFieldUserValue(_web, string.Empty)); //TODO: Criar a função para retornar vários usuários 
-
-                                        propInfo.SetValue(entity, userCollection, null);
-                                    }
-                                }
+                            case "SPFieldUserValue":
+                                propInfo.SetValue(entity, new SPFieldUserValue(item.Web, value?.ToString()), null);
                                 break;
                             default:
                                 propInfo.SetValue(entity, value, null);

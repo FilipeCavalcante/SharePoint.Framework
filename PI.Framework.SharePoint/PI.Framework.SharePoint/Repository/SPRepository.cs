@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-[assembly: CLSCompliant(true)]
 namespace PI.Framework.SharePoint
 {
     public class SPRepository<TEntity> : BaseRepository, IDisposable, ISPRepository<TEntity> where TEntity : global::PI.Framework.SharePoint.Base.SPBaseEntity, new()
@@ -24,7 +23,7 @@ namespace PI.Framework.SharePoint
                 return relativeweburl ?? "";
             }
         }
-        private static string ListGuid { get; set; }
+        private static string ListTitle { get; set; }
 
         #endregion
 
@@ -36,13 +35,9 @@ namespace PI.Framework.SharePoint
             else
                 InitRepository(webUrl?.ToString());
         }
-        public SPRepository(string weburl, Guid listguid, bool runWithElevatedPrivileges = false) : this(weburl, runWithElevatedPrivileges)
-        {
-
-        }
         public SPRepository(string weburl, string listname, bool runWithElevatedPrivileges = false) : this(weburl, runWithElevatedPrivileges)
         {
-
+            ListTitle = listname;
         }
 
         #endregion
@@ -52,9 +47,9 @@ namespace PI.Framework.SharePoint
         {
             try
             {
-                ListGuid = ListAttribute<TEntity>().ListGuid;
+                var listTitle = ListTitle ?? ListAttribute<TEntity>().ListTitle;
                 ParentWeb = new SPSite((weburl ?? SPContext.Current.Web.Url)).OpenWeb(RelativeWebUrl);
-                ParentList = ParentWeb.Lists.Cast<SPList>().FirstOrDefault(f => f.ID == Guid.Parse(ListGuid));
+                ParentList = ParentWeb.Lists.Cast<SPList>().FirstOrDefault(f => f.Title == listTitle);
             }
             catch
             {
@@ -112,6 +107,22 @@ namespace PI.Framework.SharePoint
                 }
 
                 return GetBy(query);
+            }
+            catch (Exception) { throw; }
+        }
+        public IEnumerable<TEntity> GetAll(SPQuery query = null, bool allmetadata = false)
+        {
+            try
+            {
+                var _query = query ?? new SPQuery() { Query = @"<Where />" };
+
+                if (!allmetadata)
+                {
+                    _query.ViewFieldsOnly = true;
+                    _query.ViewFields = Helper.RetrieveSPFieldRef<TEntity>();
+                }
+
+                return GetBy(_query);
             }
             catch (Exception) { throw; }
         }

@@ -10,6 +10,7 @@ namespace PI.Framework.SharePoint.Base
 {
     public class SPBaseEntity
     {
+        [FieldMapper(ReadOnly = true)]
         public int Id { get; set; }
 
         [FieldMapper(InternalName = "Title", DataType = typeof(String), ColumnType = SPFieldType.Text, ReadOnly = false)]
@@ -27,6 +28,7 @@ namespace PI.Framework.SharePoint.Base
         [FieldMapper(InternalName = "Editor", DataType = typeof(SPFieldUserValue), ColumnType = SPFieldType.User, ReadOnly = true)]
         public SPFieldUserValue Editor { get; set; }
 
+        [FieldMapper(ReadOnly = true, IsSystemProperty = true)]
         public SPListItem ParentItem { get; set; }
 
     }

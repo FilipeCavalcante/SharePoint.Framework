@@ -10,5 +10,6 @@ namespace PI.Framework.SharePoint.Mapper
         public SPFieldType ColumnType { get; set; }
         public Type DataType { get; set; }
         public bool ReadOnly { get; set; } = false;
+        public bool IsSystemProperty { get; set; } = false;
     }
 }

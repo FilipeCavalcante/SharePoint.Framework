@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FC.Framework.SharePoint", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FC.Framework.SharePoint.Tests", "FC.Framework.SharePoint.Tests\FC.Framework.SharePoint.Tests.csproj", "{3D6A6255-A55A-476D-8DCC-0BAF262C2364}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FC.Framework.SharePoint.CSOM", "FC.Framework.SharePoint.CSOM\FC.Framework.SharePoint.CSOM.csproj", "{8A01DFDD-6146-49BD-8B40-327CC1CFF65C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FC.Framework.SharePoint.CSOM.Tests", "FC.Framework.SharePoint.CSOM.Tests\FC.Framework.SharePoint.CSOM.Tests.csproj", "{A34F8F5E-1726-4A98-8AD1-815F76FCBD77}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +29,14 @@ Global
 		{3D6A6255-A55A-476D-8DCC-0BAF262C2364}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D6A6255-A55A-476D-8DCC-0BAF262C2364}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3D6A6255-A55A-476D-8DCC-0BAF262C2364}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A01DFDD-6146-49BD-8B40-327CC1CFF65C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A01DFDD-6146-49BD-8B40-327CC1CFF65C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A01DFDD-6146-49BD-8B40-327CC1CFF65C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A01DFDD-6146-49BD-8B40-327CC1CFF65C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A34F8F5E-1726-4A98-8AD1-815F76FCBD77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A34F8F5E-1726-4A98-8AD1-815F76FCBD77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A34F8F5E-1726-4A98-8AD1-815F76FCBD77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A34F8F5E-1726-4A98-8AD1-815F76FCBD77}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -32,5 +44,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{C36F8A0B-031D-42EE-8FDE-F0DDD1583CE3} = {79BE85BF-8CDA-4440-9A43-7556BBB07F96}
 		{3D6A6255-A55A-476D-8DCC-0BAF262C2364} = {B3AC49EA-12D4-42F8-88C5-431A36301B7C}
+		{8A01DFDD-6146-49BD-8B40-327CC1CFF65C} = {79BE85BF-8CDA-4440-9A43-7556BBB07F96}
+		{A34F8F5E-1726-4A98-8AD1-815F76FCBD77} = {B3AC49EA-12D4-42F8-88C5-431A36301B7C}
 	EndGlobalSection
 EndGlobal

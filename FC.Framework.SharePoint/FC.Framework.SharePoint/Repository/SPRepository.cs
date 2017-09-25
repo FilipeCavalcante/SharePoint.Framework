@@ -26,9 +26,9 @@ namespace FC.Framework.SharePoint.Repository
         public SPRepository(string webUrl = null, bool runWithElevatedPrivileges = false)
         {
             if (runWithElevatedPrivileges)
-                SPSecurity.RunWithElevatedPrivileges(() => { InitRepository(webUrl?.ToString()); });
+                SPSecurity.RunWithElevatedPrivileges(() => { InitRepository(webUrl); });
             else
-                InitRepository(webUrl?.ToString());
+                InitRepository(webUrl);
         }
         public SPRepository(string weburl, string listname, bool runWithElevatedPrivileges = false) : this(weburl, runWithElevatedPrivileges)
         {
